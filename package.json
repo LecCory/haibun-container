@@ -1,0 +1,39 @@
+{
+  "type": "module",
+  "name": "haibun-azure-function-poc",
+  "version": "1.30.7",
+  "description": "",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "clean": "rimraf dist",
+    "prestart": "npm run clean && npm run build",
+    "start": ". ./env.sh && func start",
+    "stack": "concurrently --kill-others \"npm run start-azureite\" \"npm run start-testserver\" \"func start --verbose\"",
+    "test": "echo \"No tests yet...\"",
+    "exec": "node dist/exec",
+    "start-azureite": "azurite --location /tmp/azurite --debug /tmp/azurite/debug.log",
+    "start-testserver": "http-server test/ --port 9023",
+    "zip": "zip -FSr deploy.zip dist"
+  },
+  "dependencies": {
+    "@azure/functions": "^4.0.0-alpha.7",
+    "@haibun/azure": "1.30.7",
+    "@haibun/core": "1.30.7",
+    "@haibun/domain-storage": "1.30.7",
+    "@haibun/domain-webpage": "1.30.7",
+    "@haibun/storage-fs": "1.30.7",
+    "@haibun/web-playwright": "1.30.7",
+    "azure-functions-core-tools": "^4.0.5274",
+    "azurite": "^3.26.0",
+    "concurrently": "^8.2.1",
+    "durable-functions": "^3.0.0-alpha.5",
+    "http-server": "^14.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.1",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.1.3"
+  },
+  "main": "dist/functions/*.js"
+}
